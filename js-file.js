@@ -68,7 +68,7 @@ function editDOM(city) {
 		let hours = res.hours.split(':')[0];
 		// To get the date.
 		let date = res.date;
-		const isDay = hours > 6 && hours < 18;	// Checking day or night
+		const isDay = hours > 6 && hours < 20;	// Checking day or night
 		// To change background accordingly.
 		if (isDay) {
 			body.style.cssText = "background-image: url(background/morning.jpg)";
