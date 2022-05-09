@@ -24,8 +24,12 @@ async function processData(city) {
     let pressure = data.main.pressure;
     let humidity = data.main.humidity;
     let speed = data.wind.speed;
+		let degree = data.wind.deg;
     let cityName = data.name;
-    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, hours, date};
+		let visibility = data.visibility;
+		let weather = data.weather[0].main;
+		let description = data.weather[0].description;
+    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, degree, visibility, weather, description, hours, date};
   } else {
     return {message};
   }
@@ -48,7 +52,11 @@ function editDOM(city) {
 		let feels = res.feels;
 		let humidity = res.humidity;
 		let speed = res.speed;
+		let degree = res.degree;
 		let pressure = res.pressure;
+		let visibility = res.visibility;
+		let weather = res.weather;
+		let description = res.description;
 		temperature.textContent = `${parseInt(temp)}°`;
 		currentCity.textContent = city;
 		tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
@@ -56,8 +64,12 @@ function editDOM(city) {
 		feelsLike.textContent = `Feels Like: ${parseInt(feels)}°`;
 		humid.textContent = `Humidity: ${humidity}%`;
 		wind.textContent = `Wind Speed: ${speed} m/s`;
+		deg.textContent = `Degree: ${degree}°`;
 		press.textContent = `Pressure: ${pressure} hPa`;
+		visible.textContent = `Visibility: ${visibility} m`;
 		dateTime.textContent = date;
+		weather_.textContent = `Now: ${weather}`;
+		cloud.textContent = description;
 	});
 }
 
@@ -71,8 +83,12 @@ const feelsLike = document.querySelector('.feels');
 const humid = document.querySelector('.humid');
 const wind = document.querySelector('.speed');
 const press = document.querySelector('.pressure');
+const deg = document.querySelector('.degree');
+const visible = document.querySelector('.visibility');
 const body = document.querySelector('body');
 const dateTime = document.querySelector('.date');
+const weather_ = document.querySelector('.condition');
+const cloud = document.querySelector('.cloud');
 
 editDOM("New York");
 
