@@ -19,6 +19,35 @@ body {
 	gap: 20px;
 }
 
+form {
+	display: flex;
+	gap: 5px;
+}
+
+input[type="search"], button {
+	border: none;
+	padding: 5px;
+	height: 30px;
+	opacity: 0.2;
+	background-color: aliceblue;
+	border-radius: 10px;
+}
+
+input[type="search"]:focus {
+	outline: none;
+	opacity: 0.3;
+}
+
+button {
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+button:hover {
+	opacity: 0.3;
+}
+
 .weather {
 	width: 500px;
 	padding: 20px;

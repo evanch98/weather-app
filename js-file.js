@@ -32,6 +32,15 @@ const feelsLike = document.querySelector('.feels');
 const humid = document.querySelector('.humid');
 const wind = document.querySelector('.speed');
 const press = document.querySelector('.pressure');
+const body = document.querySelector('body');
+
+const hours = new Date().getHours();
+const isDay = hours > 6 && hours < 18;
+if (isDay) {
+	body.style.cssText = "background-image: url(background/morning.jpg)";
+} else {
+	body.style.cssText = "background-image: url(background/night.jpg)";
+}
 
 btn.addEventListener('click', () => {
   processData(search.value)
