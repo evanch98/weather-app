@@ -24,12 +24,35 @@ async function processData(city) {
 
 const btn = document.querySelector('button');
 const search = document.querySelector('#search');
+const temperature = document.querySelector('.temp');
+const currentCity = document.querySelector('.city');
+const tempHigh = document.querySelector('.tempMax');
+const tempLow = document.querySelector('.tempMin');
+const feelsLike = document.querySelector('.feels');
+const humid = document.querySelector('.humid');
+const wind = document.querySelector('.speed');
+const press = document.querySelector('.pressure');
 
 btn.addEventListener('click', () => {
   processData(search.value)
     .then (res => {
+			let city = res.cityName;
   		let temp = res.temp;
+			let temp_max = res.temp_max;
+			let temp_min = res.temp_min;
+			let feels = res.feels;
+			let humidity = res.humidity;
+			let speed = res.speed;
+			let pressure = res.pressure;
     	console.log(temp);
+			temperature.textContent = `${parseInt(temp)}°`;
+			currentCity.textContent = city;
+			tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
+			tempLow.textContent = `Low: ${parseInt(temp_min)}°`;
+			feelsLike.textContent = `Feels Like: ${parseInt(feels)}°`;
+			humid.textContent = `Humidity: ${humidity}%`;
+			wind.textContent = `Wind Speed: ${speed} m/s`;
+			press.textContent = `Pressure: ${pressure} hPa`;
     });
 });
 
