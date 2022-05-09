@@ -88,7 +88,7 @@ function editDOM(city) {
 		let weather = res.weather;	// weather condition
 		let description = res.description;	// weather description
 		// Changing html contents - START
-		temperature.textContent = `${parseInt(temp)}°`;
+		temperature.textContent = `${parseInt(temp)}° Celsius`;
 		currentCity.textContent = city;
 		tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
 		tempLow.textContent = `Low: ${parseInt(temp_min)}°`;
