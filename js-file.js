@@ -10,25 +10,13 @@ async function times(city) {
 	return json;
 }
 
-async function processCurrent() {
-	let data = await fetchPosition();
-  let temp = data.main.temp;
-  let temp_min = data.main.temp_min;
-  let temp_max = data.main.temp_max;
-  let feels = data.main.feels_like;
-  let pressure = data.main.pressure;
-  let humidity = data.main.humidity;
-  let speed = data.wind.speed;
-  let cityName = data.name;
-  return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, hours};
-}
-
 async function processData(city) {
   let data = await fetchData(city);
   let message = data.message;
 	let time = await times(city);
   if (message === undefined) {
 		let hours = time.time_24;
+		let date = time.date;
     let temp = data.main.temp;
     let temp_min = data.main.temp_min;
     let temp_max = data.main.temp_max;
@@ -37,10 +25,40 @@ async function processData(city) {
     let humidity = data.main.humidity;
     let speed = data.wind.speed;
     let cityName = data.name;
-    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, hours};
+    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, hours, date};
   } else {
     return {message};
   }
+}
+
+function editDOM(city) {
+	processData(city).then (res => {
+		let hours = res.hours.split(':')[0];
+		let date = res.date;
+		const isDay = hours > 6 && hours < 18;
+		if (isDay) {
+			body.style.cssText = "background-image: url(background/morning.jpg)";
+		} else {
+			body.style.cssText = "background-image: url(background/night.jpg)";
+		}
+		let city = res.cityName;
+		let temp = res.temp;
+		let temp_max = res.temp_max;
+		let temp_min = res.temp_min;
+		let feels = res.feels;
+		let humidity = res.humidity;
+		let speed = res.speed;
+		let pressure = res.pressure;
+		temperature.textContent = `${parseInt(temp)}°`;
+		currentCity.textContent = city;
+		tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
+		tempLow.textContent = `Low: ${parseInt(temp_min)}°`;
+		feelsLike.textContent = `Feels Like: ${parseInt(feels)}°`;
+		humid.textContent = `Humidity: ${humidity}%`;
+		wind.textContent = `Wind Speed: ${speed} m/s`;
+		press.textContent = `Pressure: ${pressure} hPa`;
+		dateTime.textContent = date;
+	});
 }
 
 const btn = document.querySelector('button');
@@ -54,60 +72,12 @@ const humid = document.querySelector('.humid');
 const wind = document.querySelector('.speed');
 const press = document.querySelector('.pressure');
 const body = document.querySelector('body');
+const dateTime = document.querySelector('.date');
 
-processData("New York").then (res => {
-	let hours = res.hours.split(':')[0];
-	const isDay = hours > 6 && hours < 18;
-	if (isDay) {
-		body.style.cssText = "background-image: url(background/morning.jpg)";
-	} else {
-		body.style.cssText = "background-image: url(background/night.jpg)";
-	}
-	let city = res.cityName;
-  let temp = res.temp;
-	let temp_max = res.temp_max;
-	let temp_min = res.temp_min;
-	let feels = res.feels;
-	let humidity = res.humidity;
-	let speed = res.speed;
-	let pressure = res.pressure;
-	temperature.textContent = `${parseInt(temp)}°`;
-	currentCity.textContent = city;
-	tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
-	tempLow.textContent = `Low: ${parseInt(temp_min)}°`;
-	feelsLike.textContent = `Feels Like: ${parseInt(feels)}°`;
-	humid.textContent = `Humidity: ${humidity}%`;
-	wind.textContent = `Wind Speed: ${speed} m/s`;
-	press.textContent = `Pressure: ${pressure} hPa`;
-});
+editDOM("New York");
 
 btn.addEventListener('click', () => {
-  processData(search.value)
-    .then (res => {
-			let hours = res.hours.split(':')[0];
-			const isDay = hours > 6 && hours < 18;
-			if (isDay) {
-				body.style.cssText = "background-image: url(background/morning.jpg)";
-			} else {
-				body.style.cssText = "background-image: url(background/night.jpg)";
-			}
-			let city = res.cityName;
-  		let temp = res.temp;
-			let temp_max = res.temp_max;
-			let temp_min = res.temp_min;
-			let feels = res.feels;
-			let humidity = res.humidity;
-			let speed = res.speed;
-			let pressure = res.pressure;
-			temperature.textContent = `${parseInt(temp)}°`;
-			currentCity.textContent = city;
-			tempHigh.textContent = `High: ${parseInt(temp_max)}°`;
-			tempLow.textContent = `Low: ${parseInt(temp_min)}°`;
-			feelsLike.textContent = `Feels Like: ${parseInt(feels)}°`;
-			humid.textContent = `Humidity: ${humidity}%`;
-			wind.textContent = `Wind Speed: ${speed} m/s`;
-			press.textContent = `Pressure: ${pressure} hPa`;
-    });
+  editDOM(search.value);
 });
 
 
