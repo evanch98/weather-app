@@ -60,7 +60,7 @@ button:hover {
 	align-items: center;
 }
 
-.tempContainer {
+.row {
 	height: 25px;
 	display: flex;
 	align-items: center;
