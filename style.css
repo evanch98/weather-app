@@ -71,3 +71,22 @@ button:hover {
 	display: flex;
 	gap: 20px;
 }
+
+.additional {
+	width: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 200px);
+	place-items: center center;
+	gap: 20px;
+}
+
+.addRow {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100px;
+	padding: 10px;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+}
