@@ -1,0 +1,44 @@
+* {
+	padding: 0;
+	margin: 0;
+	font-size: 20px;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #152D35;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	gap: 20px;
+}
+
+.weather {
+	width: 500px;
+	padding: 20px;
+	background-color: aliceblue;
+	opacity: 0.2;
+
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	align-items: center;
+}
+
+.tempContainer {
+	height: 25px;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.highLow {
+	display: flex;
+	gap: 20px;
+}
