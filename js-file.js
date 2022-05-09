@@ -4,10 +4,18 @@ async function fetchData(city) {
   return json;  
 }
 
+async function times(city) {
+	let fetchTime = await fetch(`https://api.ipgeolocation.io/timezone?apiKey=9b089f1ee6ee4afcac9ac1487e31a111&location=${city}`);
+	let json = fetchTime.json();
+	return json;
+}
+
 async function processData(city) {
   let data = await fetchData(city);
   let message = data.message;
+	let time = await times(city);
   if (message === undefined) {
+		let hours = time.time_24;
     let temp = data.main.temp;
     let temp_min = data.main.temp_min;
     let temp_max = data.main.temp_max;
@@ -16,7 +24,7 @@ async function processData(city) {
     let humidity = data.main.humidity;
     let speed = data.wind.speed;
     let cityName = data.name;
-    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName};
+    return {temp, temp_min, temp_max, feels, pressure, humidity, speed, cityName, hours};
   } else {
     return {message};
   }
@@ -45,6 +53,13 @@ if (isDay) {
 btn.addEventListener('click', () => {
   processData(search.value)
     .then (res => {
+			let hours = res.hours.split(':')[0];
+			const isDay = hours > 6 && hours < 18;
+			if (isDay) {
+				body.style.cssText = "background-image: url(background/morning.jpg)";
+			} else {
+				body.style.cssText = "background-image: url(background/night.jpg)";
+			}
 			let city = res.cityName;
   		let temp = res.temp;
 			let temp_max = res.temp_max;
