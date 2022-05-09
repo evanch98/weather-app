@@ -28,8 +28,8 @@ input[type="search"], button {
 	border: none;
 	padding: 5px;
 	height: 30px;
-	opacity: 0.2;
 	background-color: aliceblue;
+	opacity: 0.2;
 	border-radius: 10px;
 }
 
@@ -51,8 +51,8 @@ button:hover {
 .weather {
 	width: 500px;
 	padding: 20px;
-	background-color: aliceblue;
-	opacity: 0.2;
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
 
 	display: flex;
 	flex-direction: column;
